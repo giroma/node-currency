@@ -4,6 +4,8 @@ const convert = (date, baseCurrency, conversionCurrency, amount) => {
   return axios.get(`https://exchangeratesapi.io/api/${date}?base=${baseCurrency}&symbols=${conversionCurrency}`)
   .then((res) => {
     const rate = res.data.rates[conversionCurrency];
+    const date = res.data.date;
+    const base_currency = res.data.base_currency;
     return {
       "date": date,
       "base_currency": baseCurrency,
@@ -17,7 +19,7 @@ const convert = (date, baseCurrency, conversionCurrency, amount) => {
   })
 }
 
-convert('2017-01-12', 'USD', 'CAD', 100) //run with hard coded data
+convert('2017-06-4', 'USD', 'CAD', 100) //sample execution
 .then((res) => {
   const jsonRes = JSON.stringify(res) //stringify js object so it's a JSON string
   console.log('output', jsonRes); //output return for diplay
