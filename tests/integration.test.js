@@ -1,6 +1,6 @@
 const expect = require('expect');
 
-const {convert} = require('../server');//import server.js convert function
+const {convert} = require('../app');//import app.js convert function
 
 describe('Integration test', () => {
   it('Should return correct JSON after API hit, test 1', (done) => {

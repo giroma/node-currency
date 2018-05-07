@@ -1,7 +1,7 @@
 const expect = require('expect');
 const nock = require('nock');
 
-const {convert} = require('../server');//import server.js convert function
+const {convert} = require('../app');//import app.js convert function
 const mockData = require('./mockData');
 
 describe('Unit test cases', () => {
@@ -15,9 +15,6 @@ describe('Unit test cases', () => {
     nock('https://exchangeratesapi.io')
       .get(`/api/${mockData.three.date}?base=${mockData.three.base_currency}&symbols=${mockData.three.conversion_currency}`)
       .reply(200, {"base":mockData.three.base_currency,"date":mockData.three.date,"rates":{"PLN":4.402}})
-    nock('https://exchangeratesapi.io')
-      .get(`/api/${mockData.four.date}?base=${mockData.four.base_currency}&symbols=${mockData.four.conversion_currency}`)
-      .reply(200, {"base":mockData.four.base_currency,"date":mockData.four.date,"rates":{"TRY":0.2754}})
     nock('https://exchangeratesapi.io')
       .get(`/api/${mockData.four.date}?base=${mockData.four.base_currency}&symbols=${mockData.four.conversion_currency}`)
       .reply(200, {"base":mockData.four.base_currency,"date":mockData.four.date,"rates":{"TRY":0.2754}})
