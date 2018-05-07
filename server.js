@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const convert = (date, baseCurrency, conversionCurrency, amount) => {
-  return axios.get(`https://exchangeratesapi.io/api/${date}?base=${baseCurrency}&symbols=${conversionCurrency}`)
+  return axios.get(`https://exchangeratesapi.io/api/${date}?base=${baseCurrency.toUpperCase()}&symbols=${conversionCurrency.toUpperCase()}`)
   .then((res) => {
     const rate = res.data.rates[conversionCurrency];
     const date = res.data.date;
