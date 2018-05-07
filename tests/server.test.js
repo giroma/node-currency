@@ -18,6 +18,9 @@ describe('Unit test cases', () => {
     nock('https://exchangeratesapi.io')
       .get(`/api/${mockData.four.date}?base=${mockData.four.base_currency}&symbols=${mockData.four.conversion_currency}`)
       .reply(200, {"base":mockData.four.base_currency,"date":mockData.four.date,"rates":{"TRY":0.2754}})
+    nock('https://exchangeratesapi.io')
+      .get(`/api/${mockData.four.date}?base=${mockData.four.base_currency}&symbols=${mockData.four.conversion_currency}`)
+      .reply(200, {"base":mockData.four.base_currency,"date":mockData.four.date,"rates":{"TRY":0.2754}})
   })
   it('Convert() should return correct JSON, test 1', (done) => {
     convert(mockData.one.date,
@@ -76,6 +79,26 @@ describe('Unit test cases', () => {
         expect(res.conversion_currency).toBe(mockData.four.conversion_currency);
         expect(res.base_amount).toBe(mockData.four.base_amount);
         expect(res.conversion_amount).toBe(mockData.four.conversion_amount);
+        done()
+      })
+  })
+  it('Convert() should return undefined if amount = 0', (done) => {
+    convert(mockData.four.date,
+            mockData.four.base_currency,
+            mockData.four.conversion_currency,
+            0)
+      .then((res) => {
+        expect(typeof res).toBe('undefined')
+        done()
+      })
+  })
+  it('Convert() should return undefined if amount is negative', (done) => {
+    convert(mockData.four.date,
+            mockData.four.base_currency,
+            mockData.four.conversion_currency,
+            -1 )
+      .then((res) => {
+        expect(typeof res).toBe('undefined')
         done()
       })
   })
