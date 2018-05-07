@@ -1,7 +1,7 @@
 const expect = require('expect');
 const nock = require('nock');
 
-const {convert} = require('../server');//import server.js function
+const {convert} = require('../server');//import server.js convert function
 const mockData = require('./mockData');
 
 describe('Unit test cases', () => {
@@ -82,23 +82,24 @@ describe('Unit test cases', () => {
         done()
       })
   })
-  it('Convert() should return undefined if amount = 0', (done) => {
+  it('Convert() should throw error if amount = 0', (done) => {
     convert(mockData.four.date,
             mockData.four.base_currency,
             mockData.four.conversion_currency,
             0)
       .then((res) => {
-        expect(typeof res).toBe('undefined')
+        //check that the function return error with correct message
+        expect(() => {throw res}).toThrow('amount not greater than 0')
         done()
       })
   })
-  it('Convert() should return undefined if amount is negative', (done) => {
+  it('Convert() should throw error if amount < 0', (done) => {
     convert(mockData.four.date,
             mockData.four.base_currency,
             mockData.four.conversion_currency,
             -1 )
       .then((res) => {
-        expect(typeof res).toBe('undefined')
+        expect(() => {throw res}).toThrow('amount not greater than 0')
         done()
       })
   })

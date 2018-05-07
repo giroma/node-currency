@@ -20,15 +20,13 @@ const convert = (date, baseCurrency, conversionCurrency, amount) => {
     }
   })
   .catch((error) => {
-    console.log('API error', error);
+    return error
   })
 }
 
-convert('2017-06-4', 'USD', 'CAD', 100) //sample execution
+convert('2017-06-4', 'USD', 'CAD', 1) //sample execution
 .then((res) => {
-  const jsonRes = JSON.stringify(res) //stringify js object so it's a JSON string
-  console.log('Output:', jsonRes); //output return for diplay
-  return jsonRes
+  return res
 })
 
 module.exports = {convert}
